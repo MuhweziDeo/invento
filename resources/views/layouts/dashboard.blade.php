@@ -1,34 +1,39 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="d-flex" id="wrapper">
-
-    <!-- Sidebar -->
-    <div class="bg-light card shadow" id="sidebar-wrapper">
+<div class="d-flex" >
+    <div class="bg-light card shadow"  style="width: 10rem">
         <div class="list-group list-group-flush">
-            <a href="#" class="list-group-item active list-group-item-action">Dashboard</a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">Users</a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">Services</a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">Items</a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">Sales</a>
+            <a href="/" class="list-group-item list-group-item-action {{Request::path() === '/' ? 'active': ''}}">Home</a>
+            @if(auth()->user()->is_admin || auth()->user()->is_staff )
+                <a href="{{route('users.index')}}" class="list-group-item list-group-item-action
+                {{\Request::is('users/*') || \Request::is('users') ? 'active': ''}}">Users</a>
+            @endif
+            <a href="#" class="list-group-item list-group-item-action ">Services</a>
+            <a href="#" class="list-group-item list-group-item-action ">Items</a>
+            <a href="#" class="list-group-item list-group-item-action ">Profile</a>
+            <a href="#" class="list-group-item list-group-item-action">Sales</a>
         </div>
     </div>
-    <!-- /#sidebar-wrapper -->
-
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
         <div class="container-fluid">
-            @if (session('status'))
-            <div class="alert alert-success" role="alert">
-                {{ session('status') }}
-            </div>
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
             @endif
+                @if ($errors->has('permission_denied'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ $errors->first('permission_denied') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
             @yield('dashboard-content')
         </div>
-    </div>
-    <!-- /#page-content-wrapper -->
 
 </div>
-<!-- /#wrapper -->
 @endsection

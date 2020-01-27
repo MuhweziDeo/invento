@@ -5,12 +5,12 @@
     <div class="bg-light card shadow"  style="width: 10rem">
         <div class="list-group list-group-flush">
             <a href="/" class="list-group-item list-group-item-action {{Request::path() === '/' ? 'active': ''}}">Home</a>
-            @if(auth()->user()->is_admin || auth()->user()->is_staff )
+            @if(auth()->user()->is_admin())
                 <a href="{{route('users.index')}}" class="list-group-item list-group-item-action
                 {{\Request::is('users/*') || \Request::is('users') ? 'active': ''}}">Users</a>
             @endif
-            <a href="#" class="list-group-item list-group-item-action ">Services</a>
-            <a href="#" class="list-group-item list-group-item-action ">Items</a>
+            <a href="" class="list-group-item list-group-item-action ">Services</a>
+            <a href="{{route('items.index')}}" class="list-group-item list-group-item-action {{\Request::is('items/*') || \Request::is('items') ? 'active': ''}} ">Items</a>
             <a href="#" class="list-group-item list-group-item-action ">Profile</a>
             <a href="#" class="list-group-item list-group-item-action">Sales</a>
         </div>

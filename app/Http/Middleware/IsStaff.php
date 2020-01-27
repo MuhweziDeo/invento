@@ -15,7 +15,7 @@ class IsStaff
      */
     public function handle($request, Closure $next)
     {
-        if(!auth()->user()->is_staff) {
+        if(!auth()->user()->isStaff()) {
 
             return back()->withErrors(['permission_denied' => 'Not allowed to perform action']);
 

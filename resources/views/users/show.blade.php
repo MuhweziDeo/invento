@@ -3,10 +3,9 @@
 @section('dashboard-content')
 
     <div class="container">
-        <h1>{{Request::path()}}</h1>
         @if(auth()->user()->is_admin())
-        <a href="{{route('users.create')}}" class="btn btn-primary btn-sm text-white mb-5">
-            Add User
+        <a href="{{route('users.index')}}" class="btn btn-primary btn-sm text-white mb-5">
+            Back to List
         </a>
         @endif
 
@@ -23,7 +22,6 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($users as $user)
                    <tr>
                        <td>{{$user->id}}</td>
                        <td>{{$user->name}}</td>
@@ -54,16 +52,11 @@
                                    <a href="{{route('users.edit', $user)}}" class="btn btn-outline-primary btn-sm">Edit</a>
                                    @endif
                                </div>
-                               <div class="col-4">
-                                   <a href="{{route('users.show', $user)}}" class="btn btn-success btn-sm">View</a>
-                               </div>
                            </div>
                        </td>
                    </tr>
-                @endforeach
                 </tbody>
             </table>
-            {{$users->links()}}
         </div>
 
     </div>

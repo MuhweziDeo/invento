@@ -8,17 +8,18 @@ use App\Http\Requests\UserEditRequest;
 use Exception;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use App\Models\User;
 
 class UserController extends Controller
 {
-    private $userRespository;
+    private $userRepository;
 
     public function __construct(UserRepository $userRepository)
     {
-        $this->userRespository = $userRepository;
+        $this->userRepository = $userRepository;
         $this->middleware('is_admin')->only('create');
     }
     /**
@@ -28,7 +29,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = $this->userRespository->paginate(10);
+        $users = $this->userRepository->paginate(10);
         return view('users.index')->with(['users' => $users]);
     }
 
@@ -46,14 +47,13 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function store(CreateUserRequest $request)
     {
         $data = $request->only('name', 'email', 'password');
         $data['password'] = Hash::make($data['password']);
-        $data['is_staff'] = true;
-        $data['is_admin'] = $request->get('is_admin') ? true: false;
+        $data['user_type'] = $request->get('is_admin') ? 'admin': 'data_entrant';
         User::create($data);
         return redirect()->to('users')->withSuccess('User Account Created');
     }
@@ -61,12 +61,12 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return void
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        return view('users.show')->with(['user' => $user]);
     }
 
     /**
@@ -89,8 +89,10 @@ class UserController extends Controller
      */
     public function update(UserEditRequest $request, User $user)
     {
-        $emailTaken = $this->userRespository->findByKey('email', $request->get('email'));
-        $nameTaken = $this->userRespository->findByKey('name', $request->get('name'));
+        //Todo update user to be part of staff
+        //Add a checkbox to make a user staff
+        $emailTaken = $this->userRepository->findByKey('email', $request->get('email'));
+        $nameTaken = $this->userRepository->findByKey('name', $request->get('name'));
         if($emailTaken && $request->get('email') !== $user->email) {
             return back()->withErrors(['email_taken' => "email $emailTaken->email already in use"]);
         }

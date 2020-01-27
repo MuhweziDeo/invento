@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-            $table->boolean('user_type')->default(false);
+            $table->string('user_type')->default('customer');
             $table->boolean('is_admin')->default(false);
         });
     }

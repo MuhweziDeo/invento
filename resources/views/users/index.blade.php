@@ -28,14 +28,14 @@
                        <td>{{$user->id}}</td>
                        <td>{{$user->name}}</td>
                        <td>{{$user->email}}</td>
-                       <td>{{$user->is_staff ? "true": "false"}}</td>
+                       <td>{{$user->is_admin() || $user->isStaff() ? "true": "false"}}</td>
 
                        <td>{{$user->created_at->format('d/m/Y')}}</td>
                        <td>
                            <div class="row">
 
                                <div class="col-4">
-                                   @if(auth()->user()->is_admin && auth()->id() !== $user->id)
+                                   @if(auth()->user()->is_admin() && auth()->id() !== $user->id)
                                    <form class="col-md-8" action="{{ route('users.destroy', $user) }}" method="post">
                                        @csrf
                                        @method('delete')
@@ -50,7 +50,7 @@
                                </div>
 
                                <div class="col-4">
-                                   @if(auth()->user()->is_admin || auth()->id() == $user->id)
+                                   @if(auth()->user()->is_admin() || auth()->id() == $user->id)
                                    <a href="{{route('users.edit', $user)}}" class="btn btn-outline-primary btn-sm">Edit</a>
                                    @endif
                                </div>

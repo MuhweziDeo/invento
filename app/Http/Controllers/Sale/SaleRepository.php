@@ -1,25 +1,25 @@
 <?php
 
-
-namespace App\Http\Controllers\Item;
+namespace App\Http\Controllers\Sale;
 
 use App\Contracts\Repository;
-use App\Models\Item;
+use App\Models\Sale;
 use Illuminate\Database\Eloquent\Model;
 
-class ItemRepository implements Repository
+class SaleRepository implements Repository
 {
-	public $model;
+    public $model;
 
-	public function __construct(Item $model)
-	{
-		$this->model = $model;
-	}
+    public function __construct(Sale $model)
+    {
+        $this->model = $model;
+    }
 
     public function findAll()
     {
-        return $this->model::all();
+       return $this->model::all();
     }
+
 
     public function findOneOrFail($id)
     {

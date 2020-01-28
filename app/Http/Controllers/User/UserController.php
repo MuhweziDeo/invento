@@ -7,7 +7,6 @@ use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UserEditRequest;
 use Exception;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
@@ -20,7 +19,7 @@ class UserController extends Controller
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
-        $this->middleware('is_admin')->only('create');
+        $this->middleware('is_admin')->only('create', 'store', 'edit', 'update', 'index');
     }
     /**
      * Display a listing of the resource.
@@ -46,14 +45,14 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param CreateUserRequest $request
      * @return Response
      */
     public function store(CreateUserRequest $request)
     {
         $data = $request->only('name', 'email', 'password');
         $data['password'] = Hash::make($data['password']);
-        $data['user_type'] = $request->get('is_admin') ? 'admin': 'data_entrant';
+        $data['user_type'] = $request->get('is_admin') ? User::$ADMIN : User::$DATAENTRANT;
         User::create($data);
         return redirect()->to('users')->withSuccess('User Account Created');
     }
@@ -61,8 +60,8 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
-     * @return void
+     * @param User $user
+     * @return Factory|View
      */
     public function show(User $user)
     {
@@ -90,7 +89,7 @@ class UserController extends Controller
     public function update(UserEditRequest $request, User $user)
     {
         //Todo update user to be part of staff
-        //Add a checkbox to make a user staff
+        // Add a checkbox to make a user staff
         $emailTaken = $this->userRepository->findByKey('email', $request->get('email'));
         $nameTaken = $this->userRepository->findByKey('name', $request->get('name'));
         if($emailTaken && $request->get('email') !== $user->email) {

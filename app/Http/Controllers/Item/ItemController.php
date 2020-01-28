@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Item;
 
 use App\Http\Controllers\Controller;
+use Exception;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Http\Requests\CreateItemRequest;
 use Illuminate\Http\Response;
@@ -61,7 +61,7 @@ class ItemController extends Controller
      * Display the specified resource.
      *
      * @param Item $item
-     * @return Response
+     * @return Factory|View
      */
     public function show(Item $item)
     {
@@ -91,6 +91,11 @@ class ItemController extends Controller
         //TODO make sure quantity is not less than minimum quantity
         // TODO what is the brand or size are changed should the code be regenerated as well
         $item->update($request->all());
+        if($item->quantity > $item->minimum_quantity) {
+            $item->update(['saleable' => true]);
+        }else {
+            $item->update(['saleable' => false]);
+        }
         return redirect()->to('items')->withSuccess('Item Updated');
     }
 
@@ -99,6 +104,7 @@ class ItemController extends Controller
      *
      * @param Item $item
      * @return Response
+     * @throws Exception
      */
     public function destroy(Item $item)
     {

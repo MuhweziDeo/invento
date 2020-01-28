@@ -14,7 +14,9 @@
                     <th scope="col">Size</th>
                     <th scope="col">Saleable</th>
                     <th scope="col">Brand</th>
+                    <th scope="col">Quantity</th>
                     <th scope="col">Min Quantity</th>
+                    <th>Low</th>
                     <th scope="col">Created</th>
                     <th class="text-center">Actions</th>
                 </tr>
@@ -29,7 +31,9 @@
                         <td>{{$item->saleable ? 'Yes' : 'No'}}</td>
 
                         <td>{{$item->brand}}</td>
+                        <td>{{$item->quantity}}</td>
                         <td>{{$item->minimum_quantity}}</td>
+                        <td class="{{$item->quantity < $item->minimum_quantity ? 'text-danger': 'text-info' }}">{{$item->quantity < $item->minimum_quantity ? 'Yes': 'No' }}</td>
                         <td>{{$item->created_at->format('d/m/Y')}}</td>
                         <td>
                             <div class="row">

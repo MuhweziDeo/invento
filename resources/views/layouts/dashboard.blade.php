@@ -15,6 +15,8 @@
                 <a href="{{route('items.index')}}" class="list-group-item list-group-item-action {{\Request::is('items/*') || \Request::is('items') ? 'active': ''}} ">Items</a>
                 <a href="{{route('sales.index')}}" class="list-group-item list-group-item-action {{\Request::is('sales/*') || \Request::is('sales') ? 'active': ''}} ">Sales</a>
                 <a href="{{route('services.index')}}" class="list-group-item list-group-item-action {{\Request::is('services/*') || \Request::is('services') ? 'active': ''}} ">Services</a>
+
+                <a href="{{route('service-sales.index')}}" class="list-group-item list-group-item-action {{\Request::is('service-sales/*') || \Request::is('services-sales') ? 'active': ''}} ">Services Sales</a>
             @endif
             <a href="#" class="list-group-item list-group-item-action ">Customers</a>
         </div>

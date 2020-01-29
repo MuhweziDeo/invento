@@ -1,78 +1,23 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
+### Project: Invento 
+Invento is a simple and internal Inventory Management System for Tyreworld Uganda (a fictional company). Tyreworld Uganda sales tyres for all sorts of vehicles. It also offers some services related to the tyres they sale. An example is tyre fitting. So when a customer for example buys tyres, they may also request for the service of fitting the tyre. This service may be an after sale service or paid for separately. 
+Major goal of the system is to keep track of the movement of the stock. Management would like to be notified especially when item stock levels are low or critical. The company has two branches. However, stock is centrally managed at the Main branch. 
+#### Requirements 
+To keep the project basic, it only rotates around 4 basic entities i.e. users, items, services and sales. Your implementation may not necessarily be limited to those. 
+    1. System will have both staff and customers as system users. However, only staff members will be 
+    able to access system pages. Customers on the other hand are simply recorded for the completeness of the data in the system. It's probable that the customers will have access to the system later in the future. 2. There will be only 3 staff user roles i.e. Admin, Data Entrant. Data Entrant can only insert and 
+    view listings or details of a particular item or sale record. An Admin can do anything except deleting their own user account. It would actually be nice for an Admin not see the delete button on their own profile. 3. A service has 1 or more items attached to it. Such items may be required or optional in fulfilling the service. The items attached to a service form the cost of the service. The price of the service is basically cost of items + cost of labor. When recording service sale, items attached to the service but marked as optional will increase the final price of the service. 4. For each item in the inventory, the following details will need to be kept: code (string) , size 
+    (string) , name (string) , cost (float) , saleable (boolean) , quantity (integer) , minimum_quantity and brand . The name can either be generated or input directly by the data-entrant. When generating name of the item, use the size, code and brand - in that order. For example for a tyre 17' TH4212 Pirelli , 17' is the size, TH4212 is the code and Pirelli is the brand. minimum_quantity refers to the minimum stock quantity required at the shop. saleable simply informs whether the items is sold directly to a customer or not. Most items that are not sold directly to a customer are usually attached to a service. 5. Whenever a sale is recorded, the quantity should always be updated. When the stock quantity 
+    reaches or is below the minimum_quantity , the items should be flagged as running out of stock. Show a paginated list of items that are running out of stock on the dashboard. Items that 
+    are completely out of stock i.e quantity = 0 cannot be added to a sale record. 6. Show basic reports as follows: a. On the dashboard: Total sales revenue (current month only), A count of sales (current month only), Count of Items. Count of Items Out of Stock. b. On the item details page: Total sales revenue (current month only), A count of sales (current month only) from the specific item being viewed. c. On the customer details page: Total sales revenue (current month only), A count of sales (current month only) to the specific customer being viewed. d. On the staff details page: Total sales revenue (current month only), A count of sales (current month only) by the specific staff being viewed. 7. It's assumed that the developer will take care of all the necessary CRUD operations, decide on 
+    the database structure and User Interface. For the UI, feel free to use a simple library of your choice. Bootstrap alone, for example, is good enough without need for Vue.js or Reactjs or similar. 
+Bonus Credit 
+    1. Whenever an item runs out of stock, send a notification to the Manager. 2. Send a notification to the Manager every end of the week (probably every Saturday noontime) 
+for all items that are running out of stock. 3. Even when project is not completed in the allocated time, developer shows that they handled 
+the most important parts of the project first. 4. Use PHP and Laravel best practices in the implementation of the project. 
+Additional Information 
+    1. The UI is not key to the credits on the project, so do not spend much time on it especially if it 
+affects the time needed to accomplish the main requirements of the project. 2. You are expected to create a GitHub Repository for your project. Copy the contents of this PDF file and replace the contents of the README.md file of your repository. Should you have any questions, feel free to raise it as an issue on your project repository. Invite jmatembu , 
+derrickwa , and SsemcoCoder as collaborators to your repository. The collaborators will follow the code you are pushing, review and create issues where necessary. Please commit and push your work regularly to enable the collaborators to follow along. 3. Minimum version to use is Laravel 5.8, and use migrations to manage your database structure. 4. Document any assumptions while implementing the project. Assumptions should however be 
+minimal
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
-
-## About Laravel
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
-- [Appoly](https://www.appoly.co.uk)
-- [OP.GG](https://op.gg)
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+You are expected to complete this project within 1 week. Deadline is thus 27-01-2020 at 5pm EAT. 

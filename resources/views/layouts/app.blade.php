@@ -83,6 +83,41 @@
 <script type="text/javascript">
   $('#val').prop('readonly', true);
 </script>
-      <!-- Bootstrap core JavaScript -->
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var maxField = 10; //Input fields increment limitation
+            var addButton = $('.add_button'); //Add button selector
+            var wrapper = $('.field_wrapper'); //Input field wrapper
+            var fieldHTML = `<div class="mt-2">
+                <input placeholder="Enter Item Id" type="text" name="item_id[]" value=""/>
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="optional[]" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                Optional
+                </label>
+                </div>
+                <a href="javascript:void(0);" class="remove_button">Remove</a></div>`; //New input field html
+            var x = 1; //Initial field counter is 1
+
+            //Once add button is clicked
+            $(addButton).click(function(){
+                //Check maximum number of input fields
+                if(x < maxField){
+                    x++; //Increment field counter
+                    $(wrapper).append(fieldHTML); //Add field html
+                }
+            });
+
+            //Once remove button is clicked
+            $(wrapper).on('click', '.remove_button', function(e){
+                e.preventDefault();
+                $(this).parent('div').remove(); //Remove field html
+                x--; //Decrement field counter
+            });
+        });
+    </script>
+
+    <!-- Bootstrap core JavaScript -->
 </body>
 </html>

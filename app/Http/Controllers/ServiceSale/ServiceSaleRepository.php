@@ -1,18 +1,19 @@
 <?php
 
 
-namespace App\Http\Controllers\Service;
+namespace App\Http\Controllers\ServiceSale;
 
 
 use App\Contracts\Repository;
 use App\Models\Service;
+use App\Models\ServiceSale;
 use Illuminate\Database\Eloquent\Model;
 
-class ServiceRepository implements Repository
+class ServiceSaleRepository implements Repository
 {
     public $model;
 
-    public function __construct(Service $model)
+    public function __construct(ServiceSale $model)
     {
         $this->model = $model;
     }
